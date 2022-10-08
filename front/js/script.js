@@ -25,7 +25,7 @@ async function recupererProduit(){
         // création de l'image Produit
             let imgProduct = document.createElement('img');
         // création du titre
-        let titleProduct = document.createElement('h3')
+            let titleProduct = document.createElement('h3')
         // création de la description
             let descriptionProduct = document.createElement('p')
 
