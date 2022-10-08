@@ -22,11 +22,10 @@ async function recupererProduit(){
         let descriptionProduct = document.getElementById('description');
         // création de l'image du produit
         let imgItemProduct = document.createElement('img');
-        let selectOptionList = document.querySelector('#colors')
+    
         
-        // ajout des éléments 
+        // ajout de l'élément image
         selectImgItems.appendChild(imgItemProduct);
-        
         
         // ajout du contenu
         imgItemProduct.src = productListItem.imageUrl;
@@ -35,7 +34,18 @@ async function recupererProduit(){
         priceProduct.textContent = productListItem.price;
         descriptionProduct.textContent = productListItem.description;
 
+
+        // boucle pour afficher les options de couleurs
+        let colorsList = productListItem.colors;
+
+            for (const color of colorsList) {
+                let itemOption = new Option(color, color);
         
+                let selectOptionList = document.querySelector('#colors')
+
+                selectOptionList.add(itemOption, undefined);
+
+        }
     }
 }
 
