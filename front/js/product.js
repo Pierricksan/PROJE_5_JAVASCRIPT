@@ -12,18 +12,30 @@ async function recupererProduit(){
     if(!requete.ok){
         alert('un problème est survenu');
     } else {
+        //appel de la requete en format JSON
+        let productListItem = await requete.json();
+
+        // récupération des données
+        let selectImgItems = document.querySelector('.item__img');
+        let titleProduct = document.getElementById('title');
+        let priceProduct = document.getElementById('price');
+        let descriptionProduct = document.getElementById('description');
+        // création de l'image du produit
+        let imgItemProduct = document.createElement('img');
+        let selectOptionList = document.querySelector('#colors')
+        
+        // ajout des éléments 
+        selectImgItems.appendChild(imgItemProduct);
+        
+        
+        // ajout du contenu
+        imgItemProduct.src = productListItem.imageUrl;
+        imgItemProduct.alt = productListItem.altTxt;
+        titleProduct.textContent = productListItem.name;
+        priceProduct.textContent = productListItem.price;
+        descriptionProduct.textContent = productListItem.description;
 
         
-        // création de l'image du produit
-        let imgProduct = document.createElement("img");
-        // récupération des données
-        let titleProduct = document.querySelector('h1#title');
-
-        let priceProduct = document.querySelector('span#price');
-
-        let descriptionProduct = document.querySelector('p#description');
-
-
     }
 }
 
