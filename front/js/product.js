@@ -4,7 +4,7 @@ let linkID = new URL(location.href).searchParams.get("id");
     // insertion de l'url dans la varibla de l'appel de l'API
 const urlProduct = `http://localhost:3000/api/products/${linkID}`;
 
-async function recupererProduit(){
+async function afficherProduit(){
     const requete = await fetch(urlProduct, {
         method : 'GET'
     });
@@ -49,4 +49,5 @@ async function recupererProduit(){
     }
 }
 
-recupererProduit()
+afficherProduit()
+
