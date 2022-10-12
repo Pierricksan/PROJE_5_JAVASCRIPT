@@ -87,6 +87,7 @@ function ajoutAuPanier(product) {
     // let foundItemColor = panier.find(p => p.color === product.color);
     if (foundItemID != undefined) {
         foundItemID.quantite += Number.parseInt(numberSelected.value);
+        alert("La quantité de l'article a été ajoutée")
     } else {
         panier.push(product);
         alert("Article bien ajouté")
