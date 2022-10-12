@@ -3,7 +3,7 @@ let linkID = new URL(location.href).searchParams.get("id");
 // insertion de l'url dans la varibla de l'appel de l'API
 const urlProduct = `http://localhost:3000/api/products/${linkID}`;
 
-async function afficherProduit(){
+async function displayProduit(){
     const requete = await fetch(urlProduct, {
         method : 'GET'
     });
@@ -11,6 +11,10 @@ async function afficherProduit(){
     if(!requete.ok){
         alert('un problème est survenu');
     } else {
+
+////////////////////////////////
+// AFFICHAGE DU PRODUIT 
+////////////////////////////////
         //appel de la requete en format JSON
         let productListItem = await requete.json();
 
@@ -41,63 +45,63 @@ async function afficherProduit(){
                 let itemOption = new Option(color, color);
                 let selectOptionList = document.querySelector('#colors')
                 selectOptionList.add(itemOption, undefined);
-        }
-    }
+            }
+        
+
+
+    }       
 }
 
 
 // APPEL DE LA FONCTION POUR AFFICHER LE PRODUIT EN FONCTION DE L'ID
-afficherProduit()
+displayProduit()
+////////////////////////////////
 
 
+////////////////////////////////
+// RECUPERATION DU PRODUIT 
+////////////////////////////////
 
-//// ------- Recupérer le produit pour le sauvegarder dans le storage 
+// la creation d'un panier va consister en l'implémentation dans le localStorage d'un élément panier
+// Cet élément panier sera un tableau vide au premier appel 
+// puis viendra s'ajouter les valeurs récupérer par une fonction d'événement 
+// Par l'intermédiaire de cette
 
+function savePanier(panier) {
+    localStorage.setItem("panier", JSON.stringify(panier));
 
+}
 
-// function recupererProduit(){
-//     let button = document.querySelector('#addToCart')
-//     button.addEventListener('click',() => {
-//         alert('Article bien ajouté au panier')
-
-
-//     })
-
-// }
-
-async function recupererProduit(){
-    const requete = await fetch(urlProduct, {
-        method : 'GET'
-    });
-
-    if(!requete.ok){
-        alert('un problème est survenu');
+function getBasket() {
+    let panier = localStorage.getItem("panier");
+    if (panier == null) { 
+        return [];
     } else {
-
-        // JSON.stringfy(objet) => transforme un objet en string
-        // JSON.parse(string) => transforme un string en objet JSON
-        const productSelected = {
-            id : linkID,
-            quantite : quantity.value,
-            couleur : colors.value,
-        }
-        // console.log(productSelected['id'])
-        let button = document.querySelector('#addToCart')
-            button.addEventListener('click',(e) => {
-                
-                localStorage.setItem('color-select', colors.value)
-                localStorage.setItem('itemsQuantity', quantity.value)
-                
-                if(localStorage.getItem('color-select') != null && localStorage.getItem('itemsQuantity') != "0") {
-                    alert('Article bien ajouté au panier')
-                } else {
-                    alert("Veuillez sélectionner une quantité et une couleur")
-                }
-                
-
-        })    
+        return JSON.parse(panier);
     }
 }
 
-recupererProduit()
+function ajoutAuPanier(product) {
+    let panier = getBasket();
+    panier.push(product);
+    savePanier(panier);
+}
+
+
+const colorSelected = document.getElementById("colors");
+const numberSelected = document.getElementById("quantity");
+const button = document.getElementById("addToCart");
+const buttonClear = document.getElementById("deleteFromStorage");
+
+
+button.addEventListener("click", () =>{
+    const test = {
+        nom : linkID,
+        quantite : numberSelected.value,
+        couleurs : colorSelected.value,
+    }
+    return ajoutAuPanier(test);
+})
+
+
 
