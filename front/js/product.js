@@ -88,14 +88,11 @@ function ajoutAuPanier(product) {
     if (foundItemID != undefined) {
         foundItemID.quantite += Number.parseInt(numberSelected.value);
     } else {
-        
         panier.push(product);
-    }
-    
+        alert("Article bien ajouté")
+    }    
     savePanier(panier);
 }
-
-
 
 
 // déclaration des variables pour la récupération des données du produit
@@ -113,12 +110,12 @@ button.addEventListener("click", () =>{
     }
 
     if (numberSelected.value == 0 || numberSelected.value == "" || colorSelected.value == 0 || colorSelected.value == "") {
-        alert("Toutes les options ne sont pas sélectionnées, veuillez choisir une couleur et une quantité")
+        alert("Toutes les options ne sont pas sélectionnées,\n veuillez choisir une couleur et une quantité")
     } else {
         return ajoutAuPanier(item);
     }
 
-    
+
 })
 
 
