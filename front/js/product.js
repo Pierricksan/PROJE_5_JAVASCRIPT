@@ -72,7 +72,7 @@ function savePanier(panier) {
 
 }
 
-function getBasket() {
+function getPanier() {
     let panier = localStorage.getItem("panier");
     if (panier == null) { 
         return [];
@@ -82,25 +82,43 @@ function getBasket() {
 }
 
 function ajoutAuPanier(product) {
-    let panier = getBasket();
-    panier.push(product);
+    let panier = getPanier();
+    let foundItemID = panier.find(p => p.id === product.id && p.couleurs === product.couleurs); 
+    // let foundItemColor = panier.find(p => p.color === product.color);
+    if (foundItemID != undefined) {
+        foundItemID.quantite += Number.parseInt(numberSelected.value);
+    } else {
+        
+        panier.push(product);
+    }
+    
     savePanier(panier);
 }
 
 
+
+
+// déclaration des variables pour la récupération des données du produit
 const colorSelected = document.getElementById("colors");
 const numberSelected = document.getElementById("quantity");
 const button = document.getElementById("addToCart");
 const buttonClear = document.getElementById("deleteFromStorage");
 
-
+// fonction d'événement
 button.addEventListener("click", () =>{
-    const test = {
-        nom : linkID,
-        quantite : numberSelected.value,
+    const item = {
+        id : linkID,
+        quantite : Number.parseInt(numberSelected.value),
         couleurs : colorSelected.value,
     }
-    return ajoutAuPanier(test);
+
+    if (numberSelected.value == 0 || numberSelected.value == "" || colorSelected.value == 0 || colorSelected.value == "") {
+        alert("Toutes les options ne sont pas sélectionnées, veuillez choisir une couleur et une quantité")
+    } else {
+        return ajoutAuPanier(item);
+    }
+
+    
 })
 
 
