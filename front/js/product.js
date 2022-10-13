@@ -69,7 +69,6 @@ displayProduit()
 
 function savePanier(panier) {
     localStorage.setItem("panier", JSON.stringify(panier));
-
 }
 
 function getPanier() {
