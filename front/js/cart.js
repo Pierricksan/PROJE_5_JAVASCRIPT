@@ -7,6 +7,7 @@ const urlPanier = `http://localhost:3000/api/products/`;
 let recoverPanier = JSON.parse(localStorage.getItem('panier'));
 
 
+
 async function displayPanier(){
     const requete = await fetch(urlPanier, {
         method : 'GET'
@@ -58,9 +59,9 @@ async function displayPanier(){
               createArticleCart.appendChild(createArticleDivCart).classList.add('cart__item__img');
               createArticleDivCart.appendChild(createArticleDivImgCart);
               // selection de la balise article
-              let getArticleCart = document.querySelector('.cart__item');
-              getArticleCart.setAttribute('data-id', recoverPanier[key].id);
-              getArticleCart.setAttribute('data-color', recoverPanier[key].couleurs);
+          
+              
+              
               // création de la partie div + description de l'article 
               createArticleCart.appendChild(createArticleDivCartBis).classList.add('cart__item__content');
               createArticleDivCartBis.appendChild(createArticleDivCartBisDescription).classList.add('cart__item__content__description');
@@ -82,7 +83,8 @@ async function displayPanier(){
             
               // Ajout du contenu dynamique des données du panier selon le produit 
             
-             
+              createArticleCart.setAttribute('data-id', recoverPanier[key].id);
+              createArticleCart.setAttribute('data-color', recoverPanier[key].couleurs);
               createArticleDivImgCart.src = findID.imageUrl;
               createArticleDivImgCart.alt = findID.altTxt;
               createDescriptionTitle.textContent = findID.name;
@@ -93,35 +95,41 @@ async function displayPanier(){
               createSettingQuantityInput.value = recoverPanier[key].quantite;
               createSettingDelete.textContent = "Supprimer";
 
-//   let selectedSectionCart = document.querySelector('section#cart__items');
-
-//   selectedSectionCart.innerHTML = `<article class="cart__item" data-id=${recoverPanier[key].id} data-color=${recoverPanier[key].couleurs}>
-//   <div class="cart__item__img">
-//     <img src=${findID.imageUrl} alt=${findID.altTxt}>
-//   </div>
-//   <div class="cart__item__content">
-//     <div class="cart__item__content__description">
-//       <h2>${findID.name}</h2>
-//       <p>${recoverPanier[key].couleurs}</p>
-//       <p>${findID.price}</p> €</p>
-//     </div>
-//     <div class="cart__item__content__settings">
-//       <div class="cart__item__content__settings__quantity">
-//         <p>Qté : </p>
-//         <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value=${recoverPanier[key].quantite}>
-//       </div>
-//       <div class="cart__item__content__settings__delete">
-//         <p class="deleteItem">Supprimer</p>
-//       </div>
-//     </div>
-//   </div>
-// </article>`
-
- 
-
             }   
         }
+
+        // evenement pour supprimer un objet
+        let buttonDelete = document.getElementsByClassName('deleteItem')
+        let getArticle = document.querySelector('article')
+        let data_id = getArticle.getAttribute('data-id')
+        let data_color = getArticle.getAttribute('data-color')
+        console.log(buttonDelete)
+        console.log(getArticle);
+        console.log(data_id);
+        console.log(data_color);
+        // recercher du bouton correspondant lors du clique avec une boucle, 
+        //  puis en fonction du bouton suppresion du produit 
+        // et rechargement de la page pour faire apparaitre les changements
+        for (let i = 0; i < buttonDelete.length; i++) {
+          buttonDelete[i].addEventListener("click", () =>{
+            // console.log(buttonDelete[i])
+            // console.log(i)
+            // console.log(recoverPanier.length)
+            // console.log(recoverPanier[i].couleurs)
+            // console.log(getArticle.closest('.cart__item'))
+            recoverPanier.splice(i, 1);
+            localStorage.setItem("panier", JSON.stringify(recoverPanier));
+            location.reload()
+          })
+        }
+        
+
     }
 }
 
 displayPanier()
+
+
+
+
+

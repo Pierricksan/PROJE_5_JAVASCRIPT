@@ -114,8 +114,6 @@ button.addEventListener("click", () =>{
     } else {
         return ajoutAuPanier(item);
     }
-
-
 })
 
 
