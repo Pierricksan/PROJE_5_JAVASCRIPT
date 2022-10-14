@@ -100,13 +100,7 @@ async function displayPanier(){
 
         // evenement pour supprimer un objet
         let buttonDelete = document.getElementsByClassName('deleteItem')
-        let getArticle = document.querySelector('article')
-        let data_id = getArticle.getAttribute('data-id')
-        let data_color = getArticle.getAttribute('data-color')
-        console.log(buttonDelete)
-        console.log(getArticle);
-        console.log(data_id);
-        console.log(data_color);
+        
         // recercher du bouton correspondant lors du clique avec une boucle, 
         //  puis en fonction du bouton suppresion du produit 
         // et rechargement de la page pour faire apparaitre les changements
@@ -120,10 +114,28 @@ async function displayPanier(){
             recoverPanier.splice(i, 1);
             localStorage.setItem("panier", JSON.stringify(recoverPanier));
             location.reload()
+            alert('Votre article a bien été supprimé du panier')
           })
         }
-        
 
+        let buttonQuantity = document.getElementsByClassName('itemQuantity')
+        
+        for (let i = 0; i < buttonQuantity.length; i++) {
+          buttonQuantity[i].addEventListener('change',() => {
+            // console.log(buttonQuantity[i].value);
+            newValueQuantite = buttonQuantity[i].value
+            // console.log(recoverPanier[i].quantite)
+            if (newValueQuantite != recoverPanier[i].quantite){
+              recoverPanier[i].quantite = newValueQuantite;
+              localStorage.setItem("panier", JSON.stringify(recoverPanier));
+            }
+          })
+            
+         
+        }
+        // événement pour modifier la quantité du produit 
+       
+        
     }
 }
 
