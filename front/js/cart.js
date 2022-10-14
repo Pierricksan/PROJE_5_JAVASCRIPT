@@ -18,6 +18,7 @@ async function displayPanier(){
     } else { 
         let productListItem = await requete.json();
 
+        // boucle d'affichage des produits 
         for (const key in recoverPanier) {
             // récupération des données de chaque produit contenu dans le panier 
            let IDproduct = recoverPanier[key].id;
@@ -52,16 +53,13 @@ async function displayPanier(){
               let createSettingQuantityInput = document.createElement('input');
               let createSettingsDivDelete = document.createElement('div');
               let createSettingDelete = document.createElement('p');
+              // let getTotalQuantity = document.getElementById('totalQuantity');
               // ------------------------------------------------------------------------------
               // création de la partie article après la balise section
               selectedSectionCart.appendChild(createArticleCart).classList.add('cart__item');
               // création de la partie div + img après la balise article
               createArticleCart.appendChild(createArticleDivCart).classList.add('cart__item__img');
               createArticleDivCart.appendChild(createArticleDivImgCart);
-              // selection de la balise article
-          
-              
-              
               // création de la partie div + description de l'article 
               createArticleCart.appendChild(createArticleDivCartBis).classList.add('cart__item__content');
               createArticleDivCartBis.appendChild(createArticleDivCartBisDescription).classList.add('cart__item__content__description');
@@ -80,9 +78,7 @@ async function displayPanier(){
               // création de la partie div + suppression 
               createArticleDivCartBisSettings.appendChild(createSettingsDivDelete).classList.add('cart__item__content__settings__delete');
               createSettingsDivDelete.appendChild(createSettingDelete).classList.add('deleteItem');
-            
               // Ajout du contenu dynamique des données du panier selon le produit 
-            
               createArticleCart.setAttribute('data-id', recoverPanier[key].id);
               createArticleCart.setAttribute('data-color', recoverPanier[key].couleurs);
               createArticleDivImgCart.src = findID.imageUrl;
@@ -95,22 +91,28 @@ async function displayPanier(){
               createSettingQuantityInput.value = recoverPanier[key].quantite;
               createSettingDelete.textContent = "Supprimer";
 
-            }   
-        }
-
-        // evenement pour supprimer un objet
-        let buttonDelete = document.getElementsByClassName('deleteItem')
         
-        // recercher du bouton correspondant lors du clique avec une boucle, 
-        //  puis en fonction du bouton suppresion du produit 
-        // et rechargement de la page pour faire apparaitre les changements
+              // affichage du nombre d'articles lors du premier chargement de la page
+              let getTotalQuantity = document.getElementById('totalQuantity');
+              let totalQuantity = recoverPanier.reduce((total, produit)=>{
+                return total + produit.quantite
+              }, 0)
+              getTotalQuantity.textContent = totalQuantity  
+
+
+  
+            }   
+            
+          }
+
+        // événement pour supprimer un objet
+        let buttonDelete = document.getElementsByClassName('deleteItem')
+          // recercher du bouton correspondant lors du clique avec une boucle, 
+          // puis en fonction du bouton suppresion du produit 
+          // et rechargement de la page pour faire apparaitre les changements
         for (let i = 0; i < buttonDelete.length; i++) {
           buttonDelete[i].addEventListener("click", () =>{
-            // console.log(buttonDelete[i])
-            // console.log(i)
-            // console.log(recoverPanier.length)
-            // console.log(recoverPanier[i].couleurs)
-            // console.log(getArticle.closest('.cart__item'))
+            // suppresion de l'index approprié par rapport au bouton selectionné
             recoverPanier.splice(i, 1);
             localStorage.setItem("panier", JSON.stringify(recoverPanier));
             location.reload()
@@ -118,25 +120,29 @@ async function displayPanier(){
           })
         }
 
-        let buttonQuantity = document.getElementsByClassName('itemQuantity')
-        
+        // événement pour modifier la quantité du produit 
+        let buttonQuantity = document.getElementsByClassName('itemQuantity');
+        let getTotalQuantity = document.getElementById('totalQuantity');
+
         for (let i = 0; i < buttonQuantity.length; i++) {
-          buttonQuantity[i].addEventListener('change',() => {
-            // console.log(buttonQuantity[i].value);
+          buttonQuantity[i].addEventListener('change',() => {           
             newValueQuantite = buttonQuantity[i].value
-            // console.log(recoverPanier[i].quantite)
             if (newValueQuantite != recoverPanier[i].quantite){
-              recoverPanier[i].quantite = newValueQuantite;
+              // modification de la nouvelle quantité
+              recoverPanier[i].quantite = Number.parseInt(newValueQuantite);
+              // modification du total des articles
+              let totalQuantity = recoverPanier.reduce((total, produit)=>{
+                return total + produit.quantite
+              }, 0)
+              getTotalQuantity.textContent = totalQuantity           
+              // insertion du changement dans le panier 
               localStorage.setItem("panier", JSON.stringify(recoverPanier));
             }
           })
-            
-         
         }
-        // événement pour modifier la quantité du produit 
-       
-        
+// fin du ELSE
     }
+// fin de la fonction displayPANIER
 }
 
 displayPanier()
