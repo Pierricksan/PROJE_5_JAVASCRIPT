@@ -54,3 +54,6 @@ async function recupererProduit(){
 
 // APPEL DE LA FONCTION POUR RECUPERER LES PRODUITS
 recupererProduit();
+
+
+
