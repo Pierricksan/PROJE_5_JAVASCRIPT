@@ -289,18 +289,18 @@ displayPanier()
 
 ////////////////////////////////////////////////////////////////
 //// fonction pour le formulaire 
+
 const buttonOrder = document.getElementById("order");
 // récupération du formulaire
 let formulaire = document.querySelector(".cart__order__form");
-
-console.log(formulaire);
-
+//// --------------------------------
 // regex pour les noms et ville 
 let regExpNameCity = '^[a-zA-Z.-]+$'
 // regex pour l'adresse 
 let regExpAddress = '(^[0-9])*[a-zA-Z]$'
 // regex pour le mail
 let regExpEmail = '^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$'
+//// ---------------------------------
 
 // function générale de validation des input du formulaire 
 function validationRegExp (value, RegExpression, errorMessageDOM, typeInput) {
@@ -317,11 +317,13 @@ function validationRegExp (value, RegExpression, errorMessageDOM, typeInput) {
 }
 
 // appel fonction de vérification pour le PRENOM du formulaire
-formulaire.firstName.addEventListener('change', ()=> {
+let firstname = formulaire.firstName.addEventListener('change', ()=> {
   let getFirstName = document.getElementById("firstName").value;
   let alertFirstName = document.getElementById("firstNameErrorMsg")
   validationRegExp(getFirstName, regExpNameCity, alertFirstName, "Prénom");
 })
+console.log(firstname)
+
 
 // appel fonction de vérification pour le NOM du formulaire
 formulaire.lastName.addEventListener('change', ()=> {
@@ -350,45 +352,6 @@ formulaire.email.addEventListener('change', () => {
   let alertEmail = document.getElementById("emailErrorMsg")
   validationRegExp(getEmail, regExpEmail, alertEmail, "Email");
 })
-
-// function validFirstName(firstName) {
-//   let nameRegExp = new RegExp (
-//     '^[a-zA-Z.-\s]+$', 'g'
-//   );
-//   let testName = nameRegExp.test(firstName)
-//   const alertFirstName = document.getElementById("firstNameErrorMsg")
-//   if(testName) {
-//     alertFirstName.textContent = ""
-//     return firstName
-//   } else {
-//     alertFirstName.textContent = "Prénom non valide, veuillez écrire prénom valide"
-//   }
-// }
-
-
-
-// function validEmail (mail) {
-//   let emailRegExp = new RegExp (
-//     '^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$', 
-//     'g'
-//   );
-//   let testEmail = emailRegExp.test(mail)
-//   const alertEmail = document.getElementById("emailErrorMsg")
-//   if(testEmail) {
-//     alertEmail.textContent = ""
-//     return mail
-//   } else {
-//     alertEmail.textContent = "Email non valide, veuillez écrire un email valide"
-//   }
-// }
-
-
-
-
-
-
-
-
 
 
 
