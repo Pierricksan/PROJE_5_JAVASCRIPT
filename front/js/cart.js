@@ -316,23 +316,6 @@ function validationRegExp (value, RegExpression, errorMessageDOM, typeInput) {
     }
 }
 
-// function pour récupérer les données de l'utilisateur
-
-// let recoverUserData = function() {
-//   buttonOrder.addEventListener("click", () => {
-//     const user = {
-//       firstName: document.getElementById("firstName").value,
-//       lastName: document.getElementById("lastName").value,
-//       adress: document.getElementById("address").value,
-//       city: document.getElementById("city").value,
-//       email: document.getElementById("email").value,
-//     }
-//       localStorage.setItem("contact", JSON.stringify(user));
-//   })
-//   return localStorage.getItem("contact")
-// }
- 
-
   formulaire.addEventListener('submit', (e)=> {
     e.preventDefault();
         // vérification pour le PRENOM du formulaire
@@ -371,39 +354,56 @@ function validationRegExp (value, RegExpression, errorMessageDOM, typeInput) {
               email: document.getElementById("email").value,
             }
               localStorage.setItem("contact", JSON.stringify(user));
+              location.reload();
           }
         return localStorage.getItem("contact")
+        
     }
-    
+
   );
 
-
+// //// //////////////////////////
+/// test simulation v1
+  // function pour récupérer les données de l'utilisateur
+// let recoverUserData = function() {
+  
+//     const user = {
+//       firstName: document.getElementById("firstName").value,
+//       lastName: document.getElementById("lastName").value,
+//       adress: document.getElementById("address").value,
+//       city: document.getElementById("city").value,
+//       email: document.getElementById("email").value,
+//     }
+//       localStorage.setItem("contact", JSON.stringify(user));
+  
+//     return localStorage.getItem("contact")
+// }
 // appel de la fonction de récupération des données
 // let dataUser = recoverUserData();
 // console.log(recoverUserData());
 
-
 // // fonction pour mettre les ID des produits dans un tableau qui pourra etre envoyé à l'API
-// function putProductInArray(listProduct) {
-//     let array = [];
-//     for (const key in listProduct){
-//       array.push(listProduct[key].id)  
+function putProductInArray(listProduct) {
+    let array = [];
+    for (const key in listProduct){
+      array.push(listProduct[key].id)  
 
-//       localStorage.setItem("Product-ID", JSON.stringify(array))
-//     }
-//     return JSON.parse(localStorage.getItem("Product-ID"))
-// }
+      localStorage.setItem("Product-ID", JSON.stringify(array))
+    }
+    return JSON.parse(localStorage.getItem("Product-ID"))
+}
+////////////////////////////////
+// VARIABLES POUR L'ENVOI
+let arrayProductID = putProductInArray(recoverPanier)
+let dataUser = localStorage.getItem("contact")
 
-// //Appel de la fonction
-// let arrayProductID = putProductInArray(recoverPanier)
-// console.log(arrayProductID)
-
-
-// let dataToSend = {
-//   dataUser,
-//   arrayProductID
-// }
-// console.log(dataToSend)
+////////////////////////////////
+// DONNES UTILISATEURS
+let dataToSend = {
+  dataUser,
+  arrayProductID
+}
+console.log(dataToSend)
 
 
 
