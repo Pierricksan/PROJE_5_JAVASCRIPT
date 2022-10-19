@@ -290,66 +290,65 @@ displayPanier()
 ////////////////////////////////////////////////////////////////
 //// fonction pour le formulaire 
 const buttonOrder = document.getElementById("order");
-// récupération des values saisies 
-const getFirstName = document.getElementById("firstName");
-const getLastName = document.getElementById("lastName");
-const getAdress = document.getElementById("address");
-const getCity = document.getElementById("city");
-
+// récupération du formulaire
 let formulaire = document.querySelector(".cart__order__form");
 
 console.log(formulaire);
 
-// récupération des messages d'alertes à afficher
-
-const alertLastName = document.getElementById("lastNameErrorMsg")
-const alertAddress = document.getElementById("addressErrorMsg")
-const alertCity = document.getElementById("cityErrorMsg")
-const alertEmail = document.getElementById("emailErrorMsg")
+// regex pour les noms et ville 
+let regExpNameCity = '^[a-zA-Z.-]+$'
+// regex pour l'adresse 
+let regExpAddress = '(^[0-9])*[a-zA-Z]$'
+// regex pour le mail
+let regExpEmail = '^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$'
 
 // function générale de validation des input du formulaire 
 function validationRegExp (value, RegExpression, errorMessageDOM, typeInput) {
-  let testRegExp = new RegExp (
-  `${RegExpression}`,
-  'g'
-);
-  let testValue = testRegExp.test(value);
+
+  let nameRegExp = new RegExp(`${RegExpression}`, 'g');
+
+  let testValue = nameRegExp.test(value);
     if (testValue){
       errorMessageDOM.textContent = "";
       return value;
     } else {
-      errorMessageDOM.textContent = `${typeInput} non valide, veuillez rentrer le bon format`
+      errorMessageDOM.textContent = `${typeInput} non valide, veuillez rentrer un format valide`
     }
 }
 
-// appel fonction de vérification pour le prénom du formulaire
+// appel fonction de vérification pour le PRENOM du formulaire
 formulaire.firstName.addEventListener('change', ()=> {
   let getFirstName = document.getElementById("firstName").value;
-  let firstNameRegex = '^[a-zA-Z.-]+$';
   let alertFirstName = document.getElementById("firstNameErrorMsg")
-
-  validationRegExp(getFirstName, firstNameRegex, alertFirstName, "Prénom");
+  validationRegExp(getFirstName, regExpNameCity, alertFirstName, "Prénom");
 })
 
-// appel fonction de vérification pour le Nom du formulaire
+// appel fonction de vérification pour le NOM du formulaire
 formulaire.lastName.addEventListener('change', ()=> {
   let getLastName = document.getElementById("lastName").value;
-  let lastNameRegex = '^[a-zA-Z.-]+$';
   let alertLastName = document.getElementById("lastNameErrorMsg")
-  validationRegExp(getLastName, lastNameRegex, alertLastName, "Nom")
+  validationRegExp(getLastName, regExpNameCity, alertLastName, "Nom")
 })
 
-// appel fonction de vérification pour l'adresse du formulaire
+// appel fonction de vérification pour l'ADRESSE du formulaire
+formulaire.address.addEventListener('change', () => {
+  let getAddress = document.getElementById("address").value;
+  let alertAddress = document.getElementById("addressErrorMsg")
+  validationRegExp(getAddress, regExpAddress, alertAddress, "Adresse")
+})
 
-// appel fonction de vérification pour la ville du formulaire
+// appel fonction de vérification pour la VILLE du formulaire
+formulaire.city.addEventListener('change', () => {
+  let getCity = document.getElementById("city").value;
+  let alertCity = document.getElementById("cityErrorMsg")
+  validationRegExp(getCity, regExpNameCity,alertCity, "Ville" )
+})
 
-// appel fonction de vérification pour le mail du formulaire
+// appel fonction de vérification pour le MAIL du formulaire
 formulaire.email.addEventListener('change', () => {
   let getEmail = document.getElementById("email").value;
-  let emailRegex = '^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$';
   let alertEmail = document.getElementById("emailErrorMsg")
-
-  validationRegExp(getEmail, emailRegex, alertEmail, "Email");
+  validationRegExp(getEmail, regExpEmail, alertEmail, "Email");
 })
 
 // function validFirstName(firstName) {
