@@ -304,62 +304,22 @@ let regExpEmail = '^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$'
 
 // function générale de validation des input du formulaire 
 function validationRegExp (value, RegExpression, errorMessageDOM, typeInput) {
-
   let nameRegExp = new RegExp(`${RegExpression}`, 'g');
 
   let testValue = nameRegExp.test(value);
     if (testValue){
       errorMessageDOM.textContent = "";
-      return value;
+      return true;
     } else {
       errorMessageDOM.textContent = `${typeInput} non valide, veuillez rentrer un format valide`
+      return false
     }
 }
 
-// appel fonction de vérification pour le PRENOM du formulaire
-let firstname = formulaire.firstName.addEventListener('change', ()=> {
-  let getFirstName = document.getElementById("firstName").value;
-  let alertFirstName = document.getElementById("firstNameErrorMsg")
-  validationRegExp(getFirstName, regExpNameCity, alertFirstName, "Prénom");
-})
-console.log(firstname)
-
-
-// appel fonction de vérification pour le NOM du formulaire
-formulaire.lastName.addEventListener('change', ()=> {
-  let getLastName = document.getElementById("lastName").value;
-  let alertLastName = document.getElementById("lastNameErrorMsg")
-  validationRegExp(getLastName, regExpNameCity, alertLastName, "Nom")
-})
-
-// appel fonction de vérification pour l'ADRESSE du formulaire
-formulaire.address.addEventListener('change', () => {
-  let getAddress = document.getElementById("address").value;
-  let alertAddress = document.getElementById("addressErrorMsg")
-  validationRegExp(getAddress, regExpAddress, alertAddress, "Adresse")
-})
-
-// appel fonction de vérification pour la VILLE du formulaire
-formulaire.city.addEventListener('change', () => {
-  let getCity = document.getElementById("city").value;
-  let alertCity = document.getElementById("cityErrorMsg")
-  validationRegExp(getCity, regExpNameCity,alertCity, "Ville" )
-})
-
-// appel fonction de vérification pour le MAIL du formulaire
-formulaire.email.addEventListener('change', () => {
-  let getEmail = document.getElementById("email").value;
-  let alertEmail = document.getElementById("emailErrorMsg")
-  validationRegExp(getEmail, regExpEmail, alertEmail, "Email");
-})
-
-
-
-
 // function pour récupérer les données de l'utilisateur
-// function recoverUserData() {
+
+// let recoverUserData = function() {
 //   buttonOrder.addEventListener("click", () => {
-  
 //     const user = {
 //       firstName: document.getElementById("firstName").value,
 //       lastName: document.getElementById("lastName").value,
@@ -367,11 +327,56 @@ formulaire.email.addEventListener('change', () => {
 //       city: document.getElementById("city").value,
 //       email: document.getElementById("email").value,
 //     }
-  
-//     localStorage.setItem("contact", JSON.stringify(user));
+//       localStorage.setItem("contact", JSON.stringify(user));
 //   })
 //   return localStorage.getItem("contact")
 // }
+ 
+
+  formulaire.addEventListener('submit', (e)=> {
+    e.preventDefault();
+        // vérification pour le PRENOM du formulaire
+        let getFirstName = document.getElementById("firstName").value;
+        let alertFirstName = document.getElementById("firstNameErrorMsg");
+        let firstNameVerified = validationRegExp(getFirstName, regExpNameCity, alertFirstName, "Prénom");
+        // vérification pour le NOM du formulaire
+        let getLastName = document.getElementById("lastName").value;
+        let alertLastName = document.getElementById("lastNameErrorMsg");
+        let lastNameVerified = validationRegExp(getLastName, regExpNameCity, alertLastName, "Nom");
+        // vérification pour l'ADRESSE du formulaire
+        let getAddress = document.getElementById("address").value;
+        let alertAddress = document.getElementById("addressErrorMsg");
+        let addressVerified = validationRegExp(getAddress, regExpAddress, alertAddress, "Adresse");
+        // vérification pour la VILLE du formulaire
+        let getCity = document.getElementById("city").value;
+        let alertCity = document.getElementById("cityErrorMsg")
+        let cityVerified = validationRegExp(getCity, regExpNameCity,alertCity, "Ville" )
+       //  vérification pour le MAIL du formulaire
+        let getEmail = document.getElementById("email").value;
+        let alertEmail = document.getElementById("emailErrorMsg")
+        let emailVerified = validationRegExp(getEmail, regExpEmail, alertEmail, "Email");
+    
+        console.log(firstNameVerified);
+        console.log(lastNameVerified);
+        console.log(addressVerified);
+        console.log(cityVerified);
+        console.log(emailVerified);
+    if (firstNameVerified && lastNameVerified && addressVerified && cityVerified && emailVerified) {
+      
+      const user = {
+              firstName: document.getElementById("firstName").value,
+              lastName: document.getElementById("lastName").value,
+              adress: document.getElementById("address").value,
+              city: document.getElementById("city").value,
+              email: document.getElementById("email").value,
+            }
+              localStorage.setItem("contact", JSON.stringify(user));
+          }
+        return localStorage.getItem("contact")
+    }
+    
+  );
+
 
 // appel de la fonction de récupération des données
 // let dataUser = recoverUserData();
