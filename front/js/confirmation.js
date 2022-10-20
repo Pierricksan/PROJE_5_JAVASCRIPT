@@ -4,13 +4,13 @@ const urlOrders = 'http://localhost:3000/api/products/order'
 
 ////////////////////////////////
 // VARIABLES POUR L'ENVOI
-let products = JSON.parse(localStorage.getItem('Product-ID')) // récupération des id des produits
+let productArray = JSON.parse(localStorage.getItem('Product-ID')) // récupération des id des produits
 let userData = JSON.parse(localStorage.getItem("contact")) // récupération de l'object stocké dans le localstorage et remodelage en objet 
 // let products = productsJSON.toString()
 
 let contact = {
     contact: userData,
-    products: products
+    products: productArray,
 }
 
 async function sendData (contact) {
@@ -20,17 +20,17 @@ async function sendData (contact) {
     headers: {
         'Content-Type': 'application/json'
     },
-    body: {
-        contact
-    }
+    mode : 'cors',
+    body: JSON.stringify(contact),
 });
 
 if (!requete.ok) {
     alert('un problème est survenu')
 } else {
     const orderID = await requete.json();
-    
+    console.log(orderID);
+
     }   
 }
 
-sendData(contact)
+sendData(contact);
