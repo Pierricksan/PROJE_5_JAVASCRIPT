@@ -316,54 +316,60 @@ function validationRegExp (value, RegExpression, errorMessageDOM, typeInput) {
     }
 }
 
-  formulaire.addEventListener('submit', (e)=> {
-    e.preventDefault();
-        // vérification pour le PRENOM du formulaire
-        let getFirstName = document.getElementById("firstName").value;
-        let alertFirstName = document.getElementById("firstNameErrorMsg");
-        let firstNameVerified = validationRegExp(getFirstName, regExpNameCity, alertFirstName, "Prénom");
-        // vérification pour le NOM du formulaire
-        let getLastName = document.getElementById("lastName").value;
-        let alertLastName = document.getElementById("lastNameErrorMsg");
-        let lastNameVerified = validationRegExp(getLastName, regExpNameCity, alertLastName, "Nom");
-        // vérification pour l'ADRESSE du formulaire
-        let getAddress = document.getElementById("address").value;
-        let alertAddress = document.getElementById("addressErrorMsg");
-        let addressVerified = validationRegExp(getAddress, regExpAddress, alertAddress, "Adresse");
-        // vérification pour la VILLE du formulaire
-        let getCity = document.getElementById("city").value;
-        let alertCity = document.getElementById("cityErrorMsg")
-        let cityVerified = validationRegExp(getCity, regExpNameCity,alertCity, "Ville" )
-       //  vérification pour le MAIL du formulaire
-        let getEmail = document.getElementById("email").value;
-        let alertEmail = document.getElementById("emailErrorMsg")
-        let emailVerified = validationRegExp(getEmail, regExpEmail, alertEmail, "Email");
-    
-        console.log(firstNameVerified);
-        console.log(lastNameVerified);
-        console.log(addressVerified);
-        console.log(cityVerified);
-        console.log(emailVerified);
-    if (firstNameVerified && lastNameVerified && addressVerified && cityVerified && emailVerified) {
+let dataForm = formulaire.addEventListener('submit', (e)=> {
+  e.preventDefault();
+      // vérification pour le PRENOM du formulaire
+      let getFirstName = document.getElementById("firstName").value;
+      let alertFirstName = document.getElementById("firstNameErrorMsg");
+      let firstNameVerified = validationRegExp(getFirstName, regExpNameCity, alertFirstName, "Prénom");
+      // vérification pour le NOM du formulaire
+      let getLastName = document.getElementById("lastName").value;
+      let alertLastName = document.getElementById("lastNameErrorMsg");
+      let lastNameVerified = validationRegExp(getLastName, regExpNameCity, alertLastName, "Nom");
+      // vérification pour l'ADRESSE du formulaire
+      let getAddress = document.getElementById("address").value;
+      let alertAddress = document.getElementById("addressErrorMsg");
+      let addressVerified = validationRegExp(getAddress, regExpAddress, alertAddress, "Adresse");
+      // vérification pour la VILLE du formulaire
+      let getCity = document.getElementById("city").value;
+      let alertCity = document.getElementById("cityErrorMsg")
+      let cityVerified = validationRegExp(getCity, regExpNameCity,alertCity, "Ville" )
+     //  vérification pour le MAIL du formulaire
+      let getEmail = document.getElementById("email").value;
+      let alertEmail = document.getElementById("emailErrorMsg")
+      let emailVerified = validationRegExp(getEmail, regExpEmail, alertEmail, "Email");
+  
+      // console.log(firstNameVerified);
+      // console.log(lastNameVerified);
+      // console.log(addressVerified);
+      // console.log(cityVerified);
+      // console.log(emailVerified);
       
-      const user = {
-              firstName: document.getElementById("firstName").value,
-              lastName: document.getElementById("lastName").value,
-              adress: document.getElementById("address").value,
-              city: document.getElementById("city").value,
-              email: document.getElementById("email").value,
-            }
-              localStorage.setItem("contact", JSON.stringify(user));
-              location.reload();
-          }
-        return localStorage.getItem("contact")   
+
+  if (firstNameVerified && lastNameVerified && addressVerified && cityVerified && emailVerified){
+    const user = {
+      firstName: document.getElementById("firstName").value,
+      lastName: document.getElementById("lastName").value,
+      adress: document.getElementById("address").value,
+      city: document.getElementById("city").value,
+      email: document.getElementById("email").value,
     }
-  );
+      localStorage.setItem("contact", JSON.stringify(user));
+      location.reload();
+      let confirmation = confirm("Voulez-vous confirmer votre commande ?")
+      if (confirmation == true){
+        location.href = "/front/html/confirmation.html";
+      }
+    }
+      return localStorage.getItem("contact")
+  }
+);
+
 
 // //// //////////////////////////
 /// test simulation v1
   // function pour récupérer les données de l'utilisateur
-// let recoverUserData = function() {
+//   let recoverUserData = function() {
   
 //     const user = {
 //       firstName: document.getElementById("firstName").value,
@@ -376,32 +382,40 @@ function validationRegExp (value, RegExpression, errorMessageDOM, typeInput) {
   
 //     return localStorage.getItem("contact")
 // }
-// appel de la fonction de récupération des données
+// // appel de la fonction de récupération des données
 // let dataUser = recoverUserData();
 // console.log(recoverUserData());
 
 // // fonction pour mettre les ID des produits dans un tableau qui pourra etre envoyé à l'API
 function putProductInArray(listProduct) {
-    let array = [];
-    for (const key in listProduct){
-      array.push(listProduct[key].id)  
+  let array = [];
+  for (const key in listProduct){
+    array.push(listProduct[key].id)  
 
-      localStorage.setItem("Product-ID", JSON.stringify(array))
-    }
-    return JSON.parse(localStorage.getItem("Product-ID"))
+    localStorage.setItem("Product-ID", JSON.stringify(array))
+  }
+  return JSON.parse(localStorage.getItem("Product-ID"))
 }
+
 ////////////////////////////////
 // VARIABLES POUR L'ENVOI
-let products = putProductInArray(recoverPanier)
-let contact = localStorage.getItem("contact")
+let products = putProductInArray(recoverPanier) // récupération des id des produits
+let contacts = JSON.parse(localStorage.getItem("contact")) // récupération de l'object stocké dans le localstorage et remodelage en objet 
 
-////////////////////////////////
-// DONNES UTILISATEURS
-let dataToSend = {
-  contact,
-  products
-}
-console.log(dataToSend)
+console.log(contacts)
+console.log(products)
+
+// ////////////////////////////////
+// // DONNES UTILISATEURS
+// let dataToSend = {
+//   contact,
+//   products
+// }
+// console.log(dataToSend)
+
+
+
+
 
 
 
