@@ -356,10 +356,8 @@ function validationRegExp (value, RegExpression, errorMessageDOM, typeInput) {
               localStorage.setItem("contact", JSON.stringify(user));
               location.reload();
           }
-        return localStorage.getItem("contact")
-        
+        return localStorage.getItem("contact")   
     }
-
   );
 
 // //// //////////////////////////
@@ -394,14 +392,14 @@ function putProductInArray(listProduct) {
 }
 ////////////////////////////////
 // VARIABLES POUR L'ENVOI
-let arrayProductID = putProductInArray(recoverPanier)
-let dataUser = localStorage.getItem("contact")
+let products = putProductInArray(recoverPanier)
+let contact = localStorage.getItem("contact")
 
 ////////////////////////////////
 // DONNES UTILISATEURS
 let dataToSend = {
-  dataUser,
-  arrayProductID
+  contact,
+  products
 }
 console.log(dataToSend)
 
