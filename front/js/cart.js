@@ -347,14 +347,14 @@ let dataForm = formulaire.addEventListener('submit', (e)=> {
       
 
   if (firstNameVerified && lastNameVerified && addressVerified && cityVerified && emailVerified){
-    const user = {
+    const contact = {
       firstName: document.getElementById("firstName").value,
       lastName: document.getElementById("lastName").value,
-      adress: document.getElementById("address").value,
+      address: document.getElementById("address").value,
       city: document.getElementById("city").value,
       email: document.getElementById("email").value,
     }
-      localStorage.setItem("contact", JSON.stringify(user));
+      localStorage.setItem("contact", JSON.stringify(contact));
       location.reload();
       let confirmation = confirm("Voulez-vous confirmer votre commande ?")
       if (confirmation == true){
