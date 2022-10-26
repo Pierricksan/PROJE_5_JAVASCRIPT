@@ -5,11 +5,11 @@ const urlProduct = `http://localhost:3000/api/products/${linkID}`;
 
 
 ////////////////////////////////
-// FONCTION D'APPEL DES PRODUITS VIA L'API --- PAGE D'ACCUEIL
+// FONCTION D'APPEL DES PRODUITS VIA L'API --- PAGE PRODUIT
 ////////////////////////////////
 async function displayProduit(){
     const requete = await fetch(urlProduct, {
-        method : 'GET' // method GET car récupération et affichage des données d'un produit :: pas de données sensibles
+        method : 'GET' // method GET car récupération et affichage des données d'un produit ; pas de données sensibles
     });
 
     if(!requete.ok){
@@ -48,8 +48,6 @@ async function displayProduit(){
             }
     }       
 }
-
-
 // APPEL DE LA FONCTION POUR AFFICHER LE PRODUIT EN FONCTION DE L'ID
 displayProduit()
 ////////////////////////////////
@@ -62,13 +60,10 @@ displayProduit()
 // Cet élément panier sera un tableau vide au premier appel 
 // puis viendra s'ajouter les valeurs récupérer par une fonction d'événement 
 
-
 // création dans le localStorage dun item Panier
 function savePanier(panier) {
     localStorage.setItem("panier", JSON.stringify(panier));
 }
-
-
 // si le panier est vide, on return un panier array vide
 // si panier non vide on return le panier
 function getPanier() {
@@ -79,7 +74,6 @@ function getPanier() {
         return JSON.parse(panier);
     }
 }
-
 // fonction pour récupérer le produit et le mettre dans le panier 
 function ajoutAuPanier(product) {
     // récupération du panier
@@ -100,14 +94,11 @@ function ajoutAuPanier(product) {
     // on appele le Panier pour que le produit y soit ajouté
     savePanier(panier);
 }
-
-
 // déclaration des variables pour la récupération des données du produit
 const colorSelected = document.getElementById("colors");
 const numberSelected = document.getElementById("quantity");
 const button = document.getElementById("addToCart");
 const buttonClear = document.getElementById("deleteFromStorage");
-
 // fonction d'événement de clique pour récuprer le produit choisi par l'utilisateur
 button.addEventListener("click", () =>{
     // création de la constant item qui est le produit sélectionné contenant les caractéristiques ID, couleur et quantité. 
