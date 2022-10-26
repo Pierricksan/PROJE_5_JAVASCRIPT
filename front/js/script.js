@@ -1,3 +1,4 @@
+// création de la constante d'appel concernant l'Appel de l'API
 const urlApi = 'http://localhost:3000/api/products';
 
 
@@ -5,11 +6,13 @@ const urlApi = 'http://localhost:3000/api/products';
 ////////////////////////////////
 // FONCTION D'APPEL DES PRODUITS VIA L'API --- PAGE D'ACCUEIL
 ////////////////////////////////
+// function asynchrone pour faire une requête GET a l'API ---
+// cette requête GET permettra de demander les données de tous les produits contenusdans l'API pour en faire l'affichage
+// la réponse de l'API devra être les produits de l'API à afficher
 async function recupererProduit(){
     const requete = await fetch(urlApi, {
-        method : 'GET'
+        method : 'GET' // méthode GET pour lancer un appel de récupération 
     });
-
     if(!requete.ok){
         alert('un problème est survenu');
     } else {
